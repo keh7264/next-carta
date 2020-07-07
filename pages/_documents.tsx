@@ -1,10 +1,10 @@
-import { ServerStyleSheets as MaterialUiSheets } from "@material-ui/core/styles";
-import Document, { DocumentContext } from "next/document";
-import React from "react";
-import { ServerStyleSheet as styledComponentsSheet } from "styled-components";
+import { ServerStyleSheets as MaterialUiSheets } from '@material-ui/core/styles';
+import Document, { DocumentContext } from 'next/document';
+import { ServerStyleSheet as styledComponentsSheet } from 'styled-components';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
+    // eslint-disable-next-line new-cap
     const styledComponentSheet = new styledComponentsSheet();
     const materialUiSheets = new MaterialUiSheets();
 
@@ -13,7 +13,7 @@ class MyDocument extends Document {
       originalRenderPage({
         enhanceApp: (App) => (props) =>
           styledComponentSheet.collectStyles(
-            materialUiSheets.collect(<App {...props} />)
+            materialUiSheets.collect(<App {...props} />),
           ),
       });
 
