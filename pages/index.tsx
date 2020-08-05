@@ -1,124 +1,26 @@
-import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
+import { Button, Container } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import Drawer from '@material-ui/core/Drawer';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeftOutlined';
-import ChevronRightIcon from '@material-ui/icons/ChevronRightOutlined';
+import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
+import { useTheme } from '@material-ui/core/styles';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeftOutlined';
+import ChevronRightIcon from '@material-ui/icons/ChevronRightOutlined';
 import MailIcon from '@material-ui/icons/Mail';
-import { useState } from 'react';
-import { Box, Button, Container, Grid, Paper, Card } from '@material-ui/core';
-
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import clsx from 'clsx';
 import Link from 'next/link';
+import { useState } from 'react';
+import styled from 'styled-components';
 
 const drawerWidth = 318;
 const navigationWidth = 64;
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    left: `${navigationWidth}px`,
-    top: 0,
-    display: 'flex',
-    flex: 1,
-  },
-  appBar: {
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px - ${navigationWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  hide: {
-    display: 'none',
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-    overflow: 'hidden',
-  },
-  drawerOpen: {
-    left: navigationWidth,
-    width: drawerWidth,
-    transition: theme.transitions.create('left', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  drawerClose: {
-    left: navigationWidth - drawerWidth,
-    transition: theme.transitions.create('left', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    overflowX: 'hidden',
-    width: drawerWidth,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-    left: `${navigationWidth}px`,
-  },
-  drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: -drawerWidth,
-  },
-  contentShift: {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginLeft: 0,
-  },
-  drawerPull: {
-    display: 'inline-block',
-    position: 'fixed',
-    left: `${drawerWidth + navigationWidth}px`,
-    top: '50vh',
-    backgroundColor: 'rgb(255, 255, 255)',
-    transition: theme.transitions.create('left', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  drawerPullhide: {
-    left: `${navigationWidth}px`,
-  },
-}));
-
 export default function Home() {
-  const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = useState(true);
 
@@ -130,37 +32,29 @@ export default function Home() {
     setOpen(false);
   };
 
-  // onClick = { handleDrawerOpen };
   return (
     <Layout>
-      <div
-        style={{
-          height: '100vh',
-          width: '64px',
-          backgroundColor: '#111',
-          zIndex: 1300,
-        }}
-      >
+      <div className="navigation-bar">
         <Button />
       </div>
-      <div className={classes.root}>
+      <Wrapper>
         <CssBaseline />
-        <Drawer
-          className={clsx(classes.drawer, {
-            [classes.drawerOpen]: open,
-            [classes.drawerClose]: !open,
+        <DrawerEx
+          className={clsx('drawer', {
+            drawerOpen: open,
+            drawerClose: !open,
           })}
           classes={{
             paper: clsx({
-              [classes.drawerOpen]: open,
-              [classes.drawerClose]: !open,
+              drawerOpen: open,
+              drawerClose: !open,
             }),
           }}
           variant="permanent"
           anchor="left"
           open={open}
         >
-          <div className={classes.drawerHeader}>
+          <div className="drawerHeader">
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === 'ltr' ? (
                 <ChevronLeftIcon />
@@ -182,10 +76,10 @@ export default function Home() {
               </ListItem>
             ))}
           </List>
-        </Drawer>
+        </DrawerEx>
         <div
-          className={clsx(classes.drawerPull, {
-            [classes.drawerPullhide]: !open,
+          className={clsx('drawerPull', {
+            drawerPullhide: !open,
           })}
         >
           <IconButton
@@ -193,14 +87,14 @@ export default function Home() {
             aria-label="open drawer"
             onClick={open ? handleDrawerClose : handleDrawerOpen}
             edge="start"
-            className={clsx(classes.menuButton)}
+            className={clsx('menuButton')}
           >
             {open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </div>
         <main
-          className={clsx(classes.content, {
-            [classes.contentShift]: open,
+          className={clsx('content', {
+            contentShift: open,
           })}
         >
           <div>
@@ -236,16 +130,100 @@ export default function Home() {
             </ContainerEx>
           </div>
         </main>
-      </div>
+      </Wrapper>
     </Layout>
   );
 }
 
-import styled from 'styled-components';
-export const Layout = styled.div`
+const Layout = styled.div`
   display: flex;
   position: relative;
+
+  .navigation-bar {
+    height: 100vh;
+    width: 64px;
+    background-color: #111;
+    z-index: 1300;
+  }
 `;
+
+const Wrapper = styled.div`
+  left: ${navigationWidth}px;
+  top: 0;
+  display: flex;
+  flex: 1;
+
+  .drawerHeader {
+    display: flex;
+    align-items: center;
+    ${({ theme }) => `
+      padding: ${theme.spacing(0, 1)};
+    `}
+    justify-content: flex-end;
+  }
+
+  main.content {
+    margin-left: ${-drawerWidth}px;
+    flex-grow: 1;
+    flex: 1;
+    ${({ theme }) => `
+      padding: ${theme.spacing(3)}px;
+      transition: ${theme.transitions.create('margin', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      })};`}
+
+    &.contentShift {
+      margin-left: 0;
+      ${({ theme }) => `
+      transition: ${theme.transitions.create('margin', {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      })};`}
+    }
+  }
+
+  .drawerPull {
+    display: inline-block;
+    position: fixed;
+    left: ${drawerWidth + navigationWidth}px;
+    top: 45vh;
+    background-color: rgb(255, 255, 255);
+    ${({ theme }) => `
+    transition: ${theme.transitions.create('left', {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    })};`}
+
+    &.drawerPullhide {
+      left: ${navigationWidth}px;
+    }
+  }
+`;
+
+const DrawerEx = styled(Drawer)`
+  left: ${navigationWidth}px;
+  width: ${drawerWidth}px;
+  flex-shrink: 0;
+  overflow: hidden;
+  ${({ theme }) => `
+    transition: ${theme.transitions.create('left', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    })};`}
+
+  .drawerOpen {
+    left: ${navigationWidth}px;
+    width: ${drawerWidth}px;
+  }
+
+  .drawerClose {
+    left: ${navigationWidth - drawerWidth}px;
+    overflow-x: hidden;
+    width: ${drawerWidth}px;
+  }
+`;
+
 const ContainerEx = styled(Container)`
   margin: auto;
   display: flex;
