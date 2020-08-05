@@ -1,0 +1,143 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "prettier/react",
+    "airbnb",
+    "prettier/@typescript-eslint",
+    "plugin:prettier/recommended"
+  ],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly",
+    "React": "writable"
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": ["react", "prettier", "@typescript-eslint", "react-hooks"],
+  "rules": {
+    "array-callback-return": "warn",
+    "import/extensions": "off",
+    "prettier/prettier": "error",
+    "import/no-unresolved": "off",
+    "react/destructuring-assignment": "warn",
+    "react/jsx-filename-extension": "off",
+    "react/jsx-curly-newline": "off",
+    "@typescript-eslint/indent": "off",
+    "@typescript-eslint/no-param-reassign": "off",
+    "@typescript-eslint/no-this-alias": "off",
+    "@typescript-eslint/quotes": "off",
+    "semi": "off",
+    "@typescript-eslint/semi": ["off"],
+    "@typescript-eslint/type-annotation-spacing": "off",
+    "arrow-parens": ["off", "as-needed"],
+    "camelcase": "off",
+    "comma-dangle": "off",
+    "curly": ["warn", "multi-line"],
+    "consistent-return": [
+      "warn",
+      {
+        "treatUndefinedAsUnspecified": true
+      }
+    ],
+    "dot-notation": "warn",
+    "default-case": "warn",
+    "eol-last": "off",
+    "eqeqeq": "off",
+    "import/prefer-default-export": "off",
+    "import/no-named-as-default": "off",
+    "react/jsx-no-target-blank": "warn",
+    "react/jsx-props-no-spreading": "off",
+    "react/prop-types": "off",
+    "react/jsx-boolean-value": "warn",
+    "react/no-array-index-key": "warn",
+    "jsx-a11y/tabindex-no-positive": "warn",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-static-element-interactions": "warn",
+    "jsx-a11y/no-noninteractive-element-interactions": "off",
+    "jsx-a11y/alt-text": "off",
+    "id-match": "warn",
+    "linebreak-style": "off",
+    "max-len": "off",
+    "new-parens": "off",
+    "newline-per-chained-call": "off",
+    "no-use-before-define": "off",
+    "no-useless-escape": "off",
+    "no-duplicate-imports": "error",
+    "no-case-declarations": "warn",
+    "no-eval": "error",
+    "no-shadow": "warn",
+    "no-extra-semi": "off",
+    "no-irregular-whitespace": "off",
+    "no-multiple-empty-lines": "off",
+    "no-new-wrappers": "warn",
+    "no-nested-ternary": "warn",
+    "no-trailing-spaces": "off",
+    "no-underscore-dangle": "off",
+    "no-var": "warn",
+    "no-unused-vars": "off",
+    "no-prototype-builtins": "warn",
+    "no-unused-expressions": [
+      "error",
+      {
+        "allowTernary": true,
+        "allowShortCircuit": true
+      }
+    ],
+    "no-useless-return": "warn",
+    "no-restricted-syntax": "warn",
+    "no-empty": "off",
+    "no-param-reassign": "warn",
+    "no-restricted-globals": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "args": "after-used",
+        "ignoreRestSiblings": false
+      }
+    ],
+    "object-shorthand": "warn",
+    "one-var": ["error", "never"],
+    "prefer-const": "warn",
+    "prefer-template": "off",
+    "prefer-destructuring": "warn",
+    "quote-props": "off",
+    "radix": "warn",
+    "space-before-function-paren": [
+      "error",
+      {
+        "anonymous": "never",
+        "named": "never",
+        "asyncArrow": "always"
+      }
+    ],
+    "space-in-parens": ["off", "never"],
+    "spaced-comment": "off",
+    "react/react-in-jsx-scope": 0
+  },
+  "settings": {
+    "import/extensions": [".js", ".jsx", ".ts", ".tsx"],
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
+  "ignorePatterns": ["*.test.*", "node_modules/"]
+}

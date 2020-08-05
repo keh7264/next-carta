@@ -1,25 +1,25 @@
-import clsx from "clsx";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import List from "@material-ui/core/List";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeftOutlined";
-import ChevronRightIcon from "@material-ui/icons/ChevronRightOutlined";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
-import { useState } from "react";
-import { Box, Button, Container, Grid, Paper, Card } from "@material-ui/core";
+import clsx from 'clsx';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import List from '@material-ui/core/List';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeftOutlined';
+import ChevronRightIcon from '@material-ui/icons/ChevronRightOutlined';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import MailIcon from '@material-ui/icons/Mail';
+import { useState } from 'react';
+import { Box, Button, Container, Grid, Paper, Card } from '@material-ui/core';
 
-import Link from "next/link";
+import Link from 'next/link';
 
 const drawerWidth = 318;
 const navigationWidth = 64;
@@ -28,11 +28,11 @@ const useStyles = makeStyles((theme) => ({
   root: {
     left: `${navigationWidth}px`,
     top: 0,
-    display: "flex",
+    display: 'flex',
     flex: 1,
   },
   appBar: {
-    transition: theme.transitions.create(["margin", "width"], {
+    transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px - ${navigationWidth}px)`,
     marginLeft: drawerWidth,
-    transition: theme.transitions.create(["margin", "width"], {
+    transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
@@ -49,28 +49,28 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   hide: {
-    display: "none",
+    display: 'none',
   },
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
-    overflow: "hidden",
+    overflow: 'hidden',
   },
   drawerOpen: {
     left: navigationWidth,
     width: drawerWidth,
-    transition: theme.transitions.create("left", {
+    transition: theme.transitions.create('left', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
   drawerClose: {
     left: navigationWidth - drawerWidth,
-    transition: theme.transitions.create("left", {
+    transition: theme.transitions.create('left', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    overflowX: "hidden",
+    overflowX: 'hidden',
     width: drawerWidth,
   },
   drawerPaper: {
@@ -78,36 +78,36 @@ const useStyles = makeStyles((theme) => ({
     left: `${navigationWidth}px`,
   },
   drawerHeader: {
-    display: "flex",
-    alignItems: "center",
+    display: 'flex',
+    alignItems: 'center',
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-    justifyContent: "flex-end",
+    justifyContent: 'flex-end',
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
-    transition: theme.transitions.create("margin", {
+    transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
     marginLeft: -drawerWidth,
   },
   contentShift: {
-    transition: theme.transitions.create("margin", {
+    transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
     marginLeft: 0,
   },
   drawerPull: {
-    display: "inline-block",
-    position: "fixed",
+    display: 'inline-block',
+    position: 'fixed',
     left: `${drawerWidth + navigationWidth}px`,
-    top: "50vh",
-    backgroundColor: "rgb(255, 255, 255)",
-    transition: theme.transitions.create("left", {
+    top: '50vh',
+    backgroundColor: 'rgb(255, 255, 255)',
+    transition: theme.transitions.create('left', {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
@@ -135,9 +135,9 @@ export default function Home() {
     <Layout>
       <div
         style={{
-          height: "100vh",
-          width: "64px",
-          backgroundColor: "#111",
+          height: '100vh',
+          width: '64px',
+          backgroundColor: '#111',
           zIndex: 1300,
         }}
       >
@@ -162,7 +162,7 @@ export default function Home() {
         >
           <div className={classes.drawerHeader}>
             <IconButton onClick={handleDrawerClose}>
-              {theme.direction === "ltr" ? (
+              {theme.direction === 'ltr' ? (
                 <ChevronLeftIcon />
               ) : (
                 <ChevronRightIcon />
@@ -171,7 +171,7 @@ export default function Home() {
           </div>
           <Divider />
           <List>
-            {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
               <ListItem button key={text}>
                 <ListItemIcon>
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
@@ -241,7 +241,7 @@ export default function Home() {
   );
 }
 
-import styled from "styled-components";
+import styled from 'styled-components';
 export const Layout = styled.div`
   display: flex;
   position: relative;
