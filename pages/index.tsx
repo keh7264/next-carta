@@ -1,17 +1,29 @@
 import { Container } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { style } from '@material-ui/system';
+import { observer } from 'mobx-react';
 import NavigationBar from '../components/NavigationBar';
 import ProjectDrawer from '../components/ProjectDrawer';
+import UserStore from '../stores/user';
 
 const drawerWidth = 318;
 const navigationWidth = 64;
 
-export default function Home() {
-  const theme = useTheme();
+const Home = observer(() => {
   const [open, setOpen] = useState(true);
+  const theme = useTheme();
+
+  useEffect(() => {
+    UserStore.read({
+      email: 'support@carta.is',
+      password: 'carta1234!',
+    });
+
+    return () => {};
+  }, []);
 
   return (
     <Layout>
@@ -59,7 +71,9 @@ export default function Home() {
       </Wrapper>
     </Layout>
   );
-}
+});
+
+export default Home;
 
 const Layout = styled.div`
   display: flex;
@@ -76,20 +90,12 @@ const Wrapper = styled.div`
     margin-left: ${-drawerWidth}px;
     flex-grow: 1;
     flex: 1;
-    ${({ theme }) => `
-      padding: ${theme.spacing(3)}px;
-      transition: ${theme.transitions.create('margin', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      })};`}
+    transition: margin 195ms cubic-bezier(0.4, 0, 0.6, 1) 0ms;
+    ${({ theme }) => `padding: ${theme.spacing(3)}px;`};
 
     &.contentShift {
       margin-left: 0;
-      ${({ theme }) => `
-      transition: ${theme.transitions.create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      })};`}
+      transition: margin 225ms cubic-bezier(0, 0, 0.2, 1) 0ms;
     }
   }
 `;
@@ -97,7 +103,7 @@ const Wrapper = styled.div`
 const ContainerEx = styled(Container)`
   margin: auto;
   display: flex;
-  /* flex-wrap: wrap; */
+  flex-wrap: wrap;
 `;
 
 const SnapshotCard = styled.div`
