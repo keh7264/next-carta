@@ -86,18 +86,21 @@ const DrawerEx = styled(Drawer)`
   width: ${drawerWidth}px;
   flex-shrink: 0;
   overflow: hidden;
-  background-color: #fff;
+  /* background-color: #fff; */
+
   ${({ theme }) => `
     transition: ${theme.transitions.create('left', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     })};`}
 
+  &.drawerOpen,
   .drawerOpen {
     left: ${navigationWidth}px;
     width: ${drawerWidth}px;
   }
 
+  &.drawerClose,
   .drawerClose {
     left: ${navigationWidth - drawerWidth}px;
     overflow-x: hidden;
