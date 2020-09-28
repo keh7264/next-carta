@@ -1,4 +1,6 @@
 import axios from 'axios';
+import toPairs from 'lodash/toPairs';
+import ApiErrorStore from '../../stores/error';
 
 const host = 'https://api-test.carta.is';
 const port = 443;
@@ -18,24 +20,27 @@ export const getQuery = (query) => {
   if (!query) return '';
 
   let queries = '';
-  for (const [key, value] of Object.entries(query)) {
+
+  /** toPairs : object to array @link https://lodash.com/docs/4.17.15#toPairs */
+  toPairs(query).forEach(([key, value]) => {
     if (queries == '') {
       queries += `?${key}=${value}`;
     } else {
       queries += `&${key}=${value}`;
     }
-  }
+  });
 
   return queries;
 };
 
-export const onRequestGet = async ({ url, query, headers }) => {
+export const onRequestGet = async ({ url, query = '', headers = null }) => {
   try {
     const { status, data } = await onPromiseGet({ url, query, headers });
     return { status, data };
   } catch (error) {
     if (error.response) {
       const { status, data } = error.response;
+      ApiErrorStore.setApiError(data.error_code, status);
       return { status, data };
     }
 
@@ -70,9 +75,9 @@ export const onPromiseGet = ({ url, query, headers }) => {
 
 export const onRequestPost = async ({
   url,
-  query = '',
   params,
-  headers = '',
+  query = '',
+  headers = null,
 }) => {
   try {
     const { status, data } = await onPromisePost({
@@ -85,6 +90,7 @@ export const onRequestPost = async ({
   } catch (error) {
     if (error.response) {
       const { status, data } = error.response;
+      ApiErrorStore.setApiError(data.error_code, status);
       return { status, data };
     }
 

@@ -8,6 +8,7 @@ import { observer } from 'mobx-react';
 import NavigationBar from '../components/NavigationBar';
 import ProjectDrawer from '../components/ProjectDrawer';
 import UserStore from '../stores/user';
+import ApiErrorStore from '../stores/error';
 
 const drawerWidth = 318;
 const navigationWidth = 64;
@@ -36,6 +37,14 @@ const Home = observer(() => {
           })}
         >
           <div>
+            {ApiErrorStore.errorCode && (
+              <div>
+                <div>{ApiErrorStore.errorCode}</div>
+                <button type="button" onClick={ApiErrorStore.confirmBtnClick}>
+                  확인
+                </button>
+              </div>
+            )}
             <ContainerEx maxWidth="xl">
               <SnapshotCard>
                 Lizards are a widespread group of squamate reptiles, with over
