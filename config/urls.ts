@@ -3,9 +3,9 @@ const authPath = '/auth';
 const staticPath = '/static';
 
 // RESTful API urls
-export const PROJECTS = '/projects';
+export const PROJECTS = `${apiPath}/projects`;
 export const PROJECT = (projectId) => {
-  return `${apiPath}/${PROJECTS}/${projectId}`;
+  return `${PROJECTS}/${projectId}`;
 };
 
 export const SNAPSHOTS = (projectId) => {
@@ -56,12 +56,7 @@ export const AREA = (projectId, snapshotId, annotationId) => {
   return `${AREAS(projectId, snapshotId)}/${annotationId}`;
 };
 
-export const AREA_POSITIONS = (
-  projectId,
-  snapshotId,
-  annotationId,
-  positionId,
-) => {
+export const AREA_POSITIONS = (projectId, snapshotId, annotationId, positionId) => {
   return `${AREA(projectId, snapshotId, annotationId)}/positions/${positionId}`;
 };
 
@@ -81,12 +76,7 @@ export const LINE = (projectId, snapshotId, annotationId) => {
   return `${LINES(projectId, snapshotId)}/${annotationId}`;
 };
 
-export const LINE_POSITIONS = (
-  projectId,
-  snapshotId,
-  annotationId,
-  positionId,
-) => {
+export const LINE_POSITIONS = (projectId, snapshotId, annotationId, positionId) => {
   return `${LINE(projectId, snapshotId, annotationId)}/positions/${positionId}`;
 };
 
@@ -94,17 +84,8 @@ export const LINE_ELEVATIONS = (projectId, snapshotId, annotationId) => {
   return `${LINE(projectId, snapshotId, annotationId)}/elevations`;
 };
 
-export const LINE_ELEVATION = (
-  projectId,
-  snapshotId,
-  annotationId,
-  elevationId,
-) => {
-  return `${LINE_ELEVATIONS(
-    projectId,
-    snapshotId,
-    annotationId,
-  )}/${elevationId}`;
+export const LINE_ELEVATION = (projectId, snapshotId, annotationId, elevationId) => {
+  return `${LINE_ELEVATIONS(projectId, snapshotId, annotationId)}/${elevationId}`;
 };
 
 export const POINTS = (projectId, snapshotId) => {
@@ -115,17 +96,8 @@ export const POINT = (projectId, snapshotId, annotationId) => {
   return `${POINTS(projectId, snapshotId)}/${annotationId}`;
 };
 
-export const POINT_POSITIONS = (
-  projectId,
-  snapshotId,
-  annotationId,
-  positionId,
-) => {
-  return `${POINT(
-    projectId,
-    snapshotId,
-    annotationId,
-  )}/positions/${positionId}`;
+export const POINT_POSITIONS = (projectId, snapshotId, annotationId, positionId) => {
+  return `${POINT(projectId, snapshotId, annotationId)}/positions/${positionId}`;
 };
 
 export const AERIAL_IMAGES = (projectId, snapshotId) => {
@@ -225,5 +197,4 @@ export const GCP_TEMPLATE = `${staticPath}/gcp_template`;
 export const COORDINATES = (search = '', limit = '') =>
   `${staticPath}/coordinates?search=${search}&limit=${limit}`;
 
-export const USED_COORDINATES = (search = '') =>
-  `${staticPath}/coordinates/used?search=${search}`;
+export const USED_COORDINATES = (search = '') => `${staticPath}/coordinates/used?search=${search}`;

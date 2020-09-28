@@ -55,11 +55,13 @@ export const onPromiseGet = ({ url, query, headers }) => {
   return new Promise<{ status; data }>((resolve, reject) => {
     const QUERY = getQuery(query);
     const URL = API_BASE_URL + url + QUERY;
-
-    const request = axios.get(URL, {
-      ...commonHeaders,
-      ...headers,
-    });
+    const config = {
+      headers: {
+        ...commonHeaders,
+        ...headers,
+      },
+    };
+    const request = axios.get(URL, config);
 
     request
       .then((response) => {
@@ -73,12 +75,7 @@ export const onPromiseGet = ({ url, query, headers }) => {
   });
 };
 
-export const onRequestPost = async ({
-  url,
-  params,
-  query = '',
-  headers = null,
-}) => {
+export const onRequestPost = async ({ url, params, query = '', headers = null }) => {
   try {
     const { status, data } = await onPromisePost({
       url,
@@ -105,11 +102,13 @@ export const onPromisePost = ({ url, query, params, headers }) => {
   return new Promise<{ status; data }>((resolve, reject) => {
     const QUERY = getQuery(query);
     const URL = API_BASE_URL + url + QUERY;
-
-    const request = axios.post(URL, params, {
-      ...commonHeaders,
-      ...headers,
-    });
+    const config = {
+      headers: {
+        ...commonHeaders,
+        ...headers,
+      },
+    };
+    const request = axios.post(URL, params, config);
 
     request
       .then((response) => {

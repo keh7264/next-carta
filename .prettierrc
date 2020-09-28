@@ -3,5 +3,6 @@
   "semi": true,
   "trailingComma": "all",
   "endOfLine": "auto",
-  "arrowParens": "always"
+  "arrowParens": "always",
+  "printWidth": 100
 }

@@ -4,27 +4,34 @@ import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { style } from '@material-ui/system';
-import { observer } from 'mobx-react';
+import { observer, useLocalStore } from 'mobx-react';
 import NavigationBar from '../components/NavigationBar';
 import ProjectDrawer from '../components/ProjectDrawer';
 import UserStore from '../stores/user';
 import ApiErrorStore from '../stores/error';
+import ProjectStore from '../stores/project';
 
 const drawerWidth = 318;
 const navigationWidth = 64;
 
-const Home = observer(() => {
+const Home = observer((props) => {
   const [open, setOpen] = useState(true);
   const theme = useTheme();
+  // const { projects } = ProjectStore;
+  useEffect(() => {
+    if (!UserStore.isLoggedIn) {
+      UserStore.read({
+        email: 'support@carta.is',
+        password: 'carta1234!',
+      });
+    }
+  }, []);
 
   useEffect(() => {
-    UserStore.read({
-      email: 'support@carta.is',
-      password: 'carta1234!',
-    });
-
-    return () => {};
-  }, []);
+    if (UserStore.isLoggedIn) {
+      ProjectStore.list();
+    }
+  }, [UserStore.isLoggedIn]);
 
   return (
     <Layout>
@@ -47,32 +54,32 @@ const Home = observer(() => {
             )}
             <ContainerEx maxWidth="xl">
               <SnapshotCard>
-                Lizards are a widespread group of squamate reptiles, with over
-                6,000 species, ranging across all continents except Antarctica
+                Lizards are a widespread group of squamate reptiles, with over 6,000 species,
+                ranging across all continents except Antarctica
               </SnapshotCard>
               <SnapshotCard>
-                Lizards are a widespread group of squamate reptiles, with over
-                6,000 species, ranging across all continents except Antarctica
+                Lizards are a widespread group of squamate reptiles, with over 6,000 species,
+                ranging across all continents except Antarctica
               </SnapshotCard>
               <SnapshotCard>
-                Lizards are a widespread group of squamate reptiles, with over
-                6,000 species, ranging across all continents except Antarctica
+                Lizards are a widespread group of squamate reptiles, with over 6,000 species,
+                ranging across all continents except Antarctica
               </SnapshotCard>
               <SnapshotCard>
-                Lizards are a widespread group of squamate reptiles, with over
-                6,000 species, ranging across all continents except Antarctica
+                Lizards are a widespread group of squamate reptiles, with over 6,000 species,
+                ranging across all continents except Antarctica
               </SnapshotCard>
               <SnapshotCard>
-                Lizards are a widespread group of squamate reptiles, with over
-                6,000 species, ranging across all continents except Antarctica
+                Lizards are a widespread group of squamate reptiles, with over 6,000 species,
+                ranging across all continents except Antarctica
               </SnapshotCard>
               <SnapshotCard>
-                Lizards are a widespread group of squamate reptiles, with over
-                6,000 species, ranging across all continents except Antarctica
+                Lizards are a widespread group of squamate reptiles, with over 6,000 species,
+                ranging across all continents except Antarctica
               </SnapshotCard>
               <SnapshotCard>
-                Lizards are a widespread group of squamate reptiles, with over
-                6,000 species, ranging across all continents except Antarctica
+                Lizards are a widespread group of squamate reptiles, with over 6,000 species,
+                ranging across all continents except Antarctica
               </SnapshotCard>
             </ContainerEx>
           </div>
