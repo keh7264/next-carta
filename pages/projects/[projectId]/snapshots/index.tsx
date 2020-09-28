@@ -1,26 +1,32 @@
 import { Card, Container } from '@material-ui/core';
 import { observer } from 'mobx-react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import styled from 'styled-components';
-import ProjectStore from '../../stores/project';
+import SnapshotStore from '../../../../stores/snapshots';
 
-const Projects = observer((props) => {
-  const { projects } = ProjectStore;
+const Snapshots = observer((props) => {
+  const router = useRouter();
+  const { snapshots } = SnapshotStore;
+  const { projectId } = router.query;
+
   useEffect(() => {
-    ProjectStore.list();
-  }, []);
+    if (projectId) {
+      SnapshotStore.list(projectId);
+    }
+  }, [projectId]);
 
   return (
     <ContainerEx>
-      {projects.length > 0 &&
-        projects.map(({ id, name, construction_date, completed_date, description }) => {
+      {snapshots.length > 0 &&
+        snapshots.map(({ id, take_date, description, data_process_history }) => {
           return (
-            <Link key={id} href={`/projects/${id}`}>
+            <Link key={id} href={`/projects/${projectId}/snapshots/${id}`}>
               <CardWrapper>
-                <p>{`프로젝트 명 :${name}`}</p>
-                <p>{`날짜 :${construction_date} ~ ${completed_date}`}</p>
+                <p>{`takeDate :${take_date}`}</p>
                 <p>{`상세설명 :${description}`}</p>
+                <p>{data_process_history.status}</p>
               </CardWrapper>
             </Link>
           );
@@ -29,7 +35,7 @@ const Projects = observer((props) => {
   );
 });
 
-export default Projects;
+export default Snapshots;
 const ContainerEx = styled(Container)`
   margin: auto;
   display: flex;

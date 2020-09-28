@@ -1,18 +1,18 @@
 import { observer } from 'mobx-react';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import ProjectStore from '../../stores/project';
+import ProjectStore from '../../../stores/project';
 
 const Project = observer(() => {
   const router = useRouter();
-  const { id } = router.query;
+  const { projectId } = router.query;
   const { project } = ProjectStore;
 
   useEffect(() => {
-    if (id) {
-      ProjectStore.read(id);
+    if (projectId) {
+      ProjectStore.read(projectId);
     }
-  }, [id]);
+  }, [projectId]);
 
   if (!project) {
     return <div>project is Empty</div>;
