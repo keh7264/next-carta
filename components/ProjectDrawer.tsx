@@ -43,21 +43,15 @@ const ProjectDrawer = ({ open, setOpen }) => {
       >
         <div className="drawerHeader">프로젝트 관리</div>
         <ListEx>
-          {[
-            '프로젝트 정보',
-            '현장상황',
-            'GCPs',
-            '도면',
-            '계획고',
-            '지도도구',
-            '기타 파일',
-          ].map((text, index) => (
-            <ListItem button key={text}>
-              <Link href="/">
-                <ListItemText className="listText" primary={text} />
-              </Link>
-            </ListItem>
-          ))}
+          {['프로젝트 정보', '현장상황', 'GCPs', '도면', '계획고', '지도도구', '기타 파일'].map(
+            (text, index) => (
+              <ListItem button key={text}>
+                <Link href="/">
+                  <ListItemText className="listText" primary={text} />
+                </Link>
+              </ListItem>
+            ),
+          )}
         </ListEx>
       </DrawerEx>
       <DrawerPull

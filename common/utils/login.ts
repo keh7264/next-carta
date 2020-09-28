@@ -71,7 +71,7 @@ export function getValidateInTime(): string | null {
   return localStorage.getItem('validateIn');
 }
 
-export function modifyJwtToken(jwtTokenObj: TokenObj): void {
+export function modifyJwtToken(jwtTokenObj): void {
   const curUserInfo = getUserInfoToStorage();
   const curAccessToken = curUserInfo.access;
   const curRefreshToken = curUserInfo.refresh;
@@ -81,11 +81,7 @@ export function modifyJwtToken(jwtTokenObj: TokenObj): void {
     return;
   }
 
-  if (
-    curAccessToken != null &&
-    curAccessToken !== access &&
-    curRefreshToken !== refresh
-  ) {
+  if (curAccessToken != null && curAccessToken !== access && curRefreshToken !== refresh) {
     curUserInfo.access = access;
     curUserInfo.refresh = refresh;
     setUserInfoToStorage(curUserInfo);
