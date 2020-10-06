@@ -3,17 +3,17 @@ import { observer } from 'mobx-react';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import styled from 'styled-components';
-import ProjectStore from '../../stores/project';
+import projectStore from '../../stores/project';
 
 const Projects = observer((props) => {
-  const { projects } = ProjectStore;
+  const { projects } = projectStore;
   useEffect(() => {
-    ProjectStore.list();
+    projectStore.findAll();
   }, []);
 
   return (
     <ContainerEx>
-      {projects.length > 0 &&
+      {projects &&
         projects.map(({ id, name, construction_date, completed_date, description }) => {
           return (
             <Link key={id} href={`/projects/${id}`}>

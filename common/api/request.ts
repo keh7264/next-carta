@@ -33,7 +33,7 @@ export const getQuery = (query) => {
   return queries;
 };
 
-export const onRequestGet = async ({ url, query = '', headers = null }) => {
+export const onRequestGet = async (url, { query = '', headers = null } = {}) => {
   try {
     const { status, data } = await onPromiseGet({ url, query, headers });
     return { status, data };
