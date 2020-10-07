@@ -1,11 +1,5 @@
 import { ServerStyleSheets as MaterialUiSheets } from '@material-ui/core/styles';
-import Document, {
-  DocumentContext,
-  Html,
-  Main,
-  NextScript,
-  Head,
-} from 'next/document';
+import Document, { DocumentContext, Html, Main, NextScript, Head } from 'next/document';
 import { ServerStyleSheet as styledComponentsSheet } from 'styled-components';
 
 class MyDocument extends Document {
@@ -20,9 +14,7 @@ class MyDocument extends Document {
       ctx.renderPage = () =>
         originalRenderPage({
           enhanceApp: (App) => (props) =>
-            styledComponentSheet.collectStyles(
-              materialUiSheets.collect(<App {...props} />),
-            ),
+            styledComponentSheet.collectStyles(materialUiSheets.collect(<App {...props} />)),
         });
       const initialProps = await Document.getInitialProps(ctx);
 

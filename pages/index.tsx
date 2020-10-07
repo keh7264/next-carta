@@ -1,5 +1,4 @@
 import { Container } from '@material-ui/core';
-import { useTheme } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import { observer } from 'mobx-react';
 import { useEffect, useState } from 'react';
@@ -7,7 +6,6 @@ import styled from 'styled-components';
 import NavigationBar from '../components/NavigationBar';
 import ProjectDrawer from '../components/ProjectDrawer';
 import ApiErrorStore from '../stores/error';
-import projectStore from '../stores/project';
 import UserStore from '../stores/user';
 
 const drawerWidth = 318;
@@ -15,8 +13,6 @@ const navigationWidth = 64;
 
 const Home = observer((props) => {
   const [open, setOpen] = useState(true);
-  const theme = useTheme();
-  const { projects } = projectStore;
   useEffect(() => {
     if (!UserStore.isLoggedIn) {
       UserStore.read({
@@ -25,12 +21,6 @@ const Home = observer((props) => {
       });
     }
   }, []);
-
-  useEffect(() => {
-    if (UserStore.isLoggedIn) {
-      projectStore.findAll();
-    }
-  }, [UserStore.isLoggedIn]);
 
   return (
     <Layout>

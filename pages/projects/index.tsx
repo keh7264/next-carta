@@ -3,18 +3,18 @@ import { observer } from 'mobx-react';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import styled from 'styled-components';
-import projectStore from '../../stores/project';
+import ProjectStore from '../../stores/project';
 
 const Projects = observer((props) => {
-  const { projects } = projectStore;
+  const { sortProjectList } = ProjectStore;
   useEffect(() => {
-    projectStore.findAll();
+    ProjectStore.findAll();
   }, []);
 
   return (
     <ContainerEx>
-      {projects &&
-        projects.map(({ id, name, construction_date, completed_date, description }) => {
+      {sortProjectList &&
+        sortProjectList.map(({ id, name, construction_date, completed_date, description }) => {
           return (
             <Link key={id} href={`/projects/${id}`}>
               <CardWrapper>

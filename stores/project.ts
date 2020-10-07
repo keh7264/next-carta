@@ -1,43 +1,39 @@
 import orderBy from 'lodash/orderBy';
-import { computed, observable } from 'mobx';
-import { onRequestGet } from '../common/api/request';
-import { getJWTToken } from '../common/utils/login';
+import { action, computed, flow, observable } from 'mobx';
 import { defaultProjectOrder } from '../config/project';
-import * as urls from '../config/urls';
+import projectRepository from '../repository/projectRepository';
 
-const projectStore = observable({
-  project: null,
-  projects: [],
-  orderedProjectList: [],
-  projectsOrderBy: defaultProjectOrder,
-  async findOne(projectId) {
-    const headers = { Authorization: `JWT ${getJWTToken()}` };
-    const { data } = await onRequestGet(urls.PROJECT(projectId), { headers });
+class ProjectStore {
+  @observable project = null;
+
+  @observable projects = [];
+
+  @observable orderedProjectList = [];
+
+  @observable sortingCriterion = defaultProjectOrder;
+
+  @computed get sortProjectList() {
+    return orderBy(this.projects, [this.sortingCriterion.target], [this.sortingCriterion]);
+  }
+
+  @action
+  setSortingCriterion(sortingCriterion) {
+    this.sortingCriterion = sortingCriterion;
+  }
+
+  findOne = flow(function* findOne(projectId) {
+    const { data } = yield projectRepository.findOne(projectId);
     this.project = data;
     this.projects = this.projects.map((project) =>
       this.project.id === project.id ? data : project,
     );
     return data;
-  },
-  async findAll() {
-    const headers = { Authorization: `JWT ${getJWTToken()}` };
-    const { data } = await onRequestGet(urls.PROJECTS, {
-      headers,
-    });
+  });
+
+  findAll = flow(function* findAll() {
+    const { data } = yield projectRepository.findAll();
     this.projects = data.results;
-  },
-  // sortProjectList() {
-  //   // computed로 할 수 있는 방법을
-  //   this.projects = orderBy(this.projects, [this.projectsOrderBy.target], [this.projectsOrderBy]);
-  // },
-});
+  });
+}
 
-export const sortProjectList = computed(() => {
-  return orderBy(
-    projectStore.projects,
-    [projectStore.projectsOrderBy.target],
-    [projectStore.projectsOrderBy],
-  );
-});
-
-export default projectStore;
+export default new ProjectStore();

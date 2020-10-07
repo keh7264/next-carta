@@ -6,6 +6,7 @@ import * as urls from '../config/urls';
 const UserStore = observable({
   isLoggedIn: false,
   isReadOnly: false,
+  token: '',
   async read(payload) {
     const { status, data } = await onRequestPost({
       url: urls.USER_LOGIN,

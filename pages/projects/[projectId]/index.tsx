@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import projectStore from '../../../stores/project';
+import ProjectStore from '../../../stores/project';
 
 const Project = observer(() => {
   const router = useRouter();
@@ -9,15 +9,15 @@ const Project = observer(() => {
 
   useEffect(() => {
     if (projectId) {
-      projectStore.findOne(projectId);
+      ProjectStore.findOne(projectId);
     }
   }, [projectId]);
 
-  if (!projectStore.project) {
+  if (!ProjectStore.project) {
     return <div>project is Empty</div>;
   }
 
-  const { completed_date, construction_date, coordinate, description, name } = projectStore.project;
+  const { completed_date, construction_date, coordinate, description, name } = ProjectStore.project;
 
   return (
     <div>

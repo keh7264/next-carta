@@ -10,5 +10,5 @@ export enum Order {
 
 export const defaultProjectOrder = {
   target: ProjectSortTarget.constructionDate,
-  order: Order.desc,
+  order: Order.asc,
 };
