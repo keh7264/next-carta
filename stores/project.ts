@@ -22,7 +22,7 @@ class ProjectStore {
   }
 
   findOne = flow(function* findOne(projectId) {
-    const { data } = yield projectRepository.findOne(projectId);
+    const { data } = yield projectRepository.read(projectId);
     this.project = data;
     this.projects = this.projects.map((project) =>
       this.project.id === project.id ? data : project,
@@ -31,7 +31,7 @@ class ProjectStore {
   });
 
   findAll = flow(function* findAll() {
-    const { data } = yield projectRepository.findAll();
+    const { data } = yield projectRepository.list();
     this.projects = data.results;
   });
 }

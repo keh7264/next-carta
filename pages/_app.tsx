@@ -1,8 +1,11 @@
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createMuiTheme, ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
+import { Provider } from 'mobx-react';
 import Head from 'next/head';
 import { useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
+
+import projectStore from '../stores/project';
 
 export default function MyApp({ Component, pageProps }) {
   const customTheme = createMuiTheme({
@@ -29,9 +32,13 @@ export default function MyApp({ Component, pageProps }) {
       </Head>
       {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
       <CssBaseline />
-      <ThemeProvider theme={customTheme}>
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <Provider projectStore={projectStore}>
+        <MuiThemeProvider theme={customTheme}>
+          <ThemeProvider theme={customTheme}>
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </MuiThemeProvider>
+      </Provider>
     </>
   );
 }

@@ -22,7 +22,11 @@ const Snapshots = observer((props) => {
       {snapshots.length > 0 &&
         snapshots.map(({ id, take_date, description, data_process_history }) => {
           return (
-            <Link key={id} href={`/projects/${projectId}/snapshots/${id}`}>
+            <Link
+              key={id}
+              href="/projects/[projectId]/snapshots/[snapshotId]"
+              as={`/projects/${projectId}/snapshots/${id}`}
+            >
               <CardWrapper>
                 <p>{`takeDate :${take_date}`}</p>
                 <p>{`상세설명 :${description}`}</p>

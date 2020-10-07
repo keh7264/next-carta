@@ -75,7 +75,7 @@ export const onPromiseGet = ({ url, query, headers }) => {
   });
 };
 
-export const onRequestPost = async ({ url, params, query = '', headers = null }) => {
+export const onRequestPost = async (url, params, { query = '', headers = null } = {}) => {
   try {
     const { status, data } = await onPromisePost({
       url,

@@ -1,31 +1,24 @@
-import { observable } from 'mobx';
-import { onRequestGet } from '../common/api/request';
-import { getJWTToken } from '../common/utils/login';
-import * as urls from '../config/urls';
+import { flow, observable } from 'mobx';
+import snapshotRepository from '../repository/snapshotRepository';
 
-const SnapshotStore = observable({
-  snapshot: null,
-  snapshots: [],
-  async read(projectId, snapshotId) {
-    const headers = { Authorization: `JWT ${getJWTToken()}` };
-    const { data } = await onRequestGet({
-      url: urls.SNAPSHOT(projectId, snapshotId),
-      headers,
-    });
+class SnapshotStore {
+  @observable snapshot = null;
+
+  @observable snapshots = [];
+
+  read = flow(function* read(projectId, snapshotId) {
+    const { data } = yield snapshotRepository.read(projectId, snapshotId);
     this.snapshot = data;
     this.snapshots = this.snapshots.map((snapshot) =>
       this.snapshot.id === snapshot.id ? data : snapshot,
     );
     return data;
-  },
-  async list(projectId) {
-    const headers = { Authorization: `JWT ${getJWTToken()}` };
-    const { data } = await onRequestGet({
-      url: urls.SNAPSHOTS(projectId),
-      headers,
-    });
-    this.snapshots = data.results;
-  },
-});
+  });
 
-export default SnapshotStore;
+  list = flow(function* list(projectId) {
+    const { data } = yield snapshotRepository.list(projectId);
+    this.snapshots = data.results;
+  });
+}
+
+export default new SnapshotStore();

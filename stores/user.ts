@@ -1,22 +1,21 @@
-import { observable } from 'mobx';
-import { onRequestPost } from '../common/api/request';
+import { flow, observable } from 'mobx';
 import { setUserInfoToStorage, setValidateInTime } from '../common/utils/login';
-import * as urls from '../config/urls';
+import userRepository from '../repository/userRepository';
 
-const UserStore = observable({
-  isLoggedIn: false,
-  isReadOnly: false,
-  token: '',
-  async read(payload) {
-    const { status, data } = await onRequestPost({
-      url: urls.USER_LOGIN,
-      params: payload,
-    });
+class UserStore {
+  @observable isLoggedIn = false;
+
+  @observable isReadOnly = false;
+
+  token = '';
+
+  login = flow(function* login(payload) {
+    const { data } = yield userRepository.login(payload);
     const { validateIn, ...user } = data;
     setUserInfoToStorage(user);
     setValidateInTime(validateIn);
     this.isLoggedIn = true;
-  },
-});
+  });
+}
 
-export default UserStore;
+export default new UserStore();

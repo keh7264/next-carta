@@ -82,11 +82,11 @@ const DrawerEx = styled(Drawer)`
   overflow: hidden;
   /* background-color: #fff; */
 
-  ${({ theme }) => `
+  /* ${({ theme }) => `
     transition: ${theme.transitions.create('left', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
-    })};`}
+    })};`} */
 
   &.drawerOpen,
   .drawerOpen {
@@ -104,9 +104,9 @@ const DrawerEx = styled(Drawer)`
   .drawerHeader {
     display: flex;
     align-items: center;
-    ${({ theme }) => `
+    /* ${({ theme }) => `
       padding: ${theme.spacing(0, 1)};
-    `}
+    `} */
     font-weight: bold;
     font-size: 24px;
     padding: 24px 40px;
@@ -122,11 +122,11 @@ const DrawerPull = styled.div`
   border-radius: 0px 5px 5px 0px;
   width: 24px;
   height: 64px;
-  ${({ theme }) => `
+  /* ${({ theme }) => `
     transition: ${theme.transitions.create('left', {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
-    })};`}
+    })};`} */
   &.drawerPullhide {
     left: ${navigationWidth}px;
   }

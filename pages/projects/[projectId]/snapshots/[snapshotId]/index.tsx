@@ -1,16 +1,16 @@
 import { observer } from 'mobx-react';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import SnapshotStore from '../../../../../stores/snapshots';
+import snapshotStore from '../../../../../stores/snapshots';
 
 const Snapshot = observer(() => {
   const router = useRouter();
   const { projectId, snapshotId } = router.query;
-  const { snapshot } = SnapshotStore;
+  const { snapshot } = snapshotStore;
 
   useEffect(() => {
     if (projectId && snapshotId) {
-      SnapshotStore.read(projectId, snapshotId);
+      snapshotStore.read(projectId, snapshotId);
     }
   }, [projectId, snapshotId]);
 

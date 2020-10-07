@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import NavigationBar from '../components/NavigationBar';
 import ProjectDrawer from '../components/ProjectDrawer';
 import ApiErrorStore from '../stores/error';
-import UserStore from '../stores/user';
+import userStore from '../stores/user';
 
 const drawerWidth = 318;
 const navigationWidth = 64;
@@ -14,8 +14,8 @@ const navigationWidth = 64;
 const Home = observer((props) => {
   const [open, setOpen] = useState(true);
   useEffect(() => {
-    if (!UserStore.isLoggedIn) {
-      UserStore.read({
+    if (!userStore.isLoggedIn) {
+      userStore.login({
         email: 'support@carta.is',
         password: 'carta1234!',
       });
@@ -96,7 +96,7 @@ const Wrapper = styled.div`
     flex-grow: 1;
     flex: 1;
     transition: margin 195ms cubic-bezier(0.4, 0, 0.6, 1) 0ms;
-    ${({ theme }) => `padding: ${theme.spacing(3)}px;`};
+    /* ${({ theme }) => `padding: ${theme.spacing(3)}px;`}; */
 
     &.contentShift {
       margin-left: 0;

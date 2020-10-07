@@ -104,3 +104,7 @@ export function getRefreshToken(): string {
 export function isLogin(): boolean {
   return !!getJWTToken();
 }
+
+export function getAuthHeader() {
+  return { Authorization: `JWT ${getJWTToken()}` };
+}
