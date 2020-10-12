@@ -1,17 +1,16 @@
 import { Container } from '@material-ui/core';
 import clsx from 'clsx';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import NavigationBar from '../components/NavigationBar';
 import ProjectDrawer from '../components/ProjectDrawer';
-import ApiErrorStore from '../stores/error';
-import userStore from '../stores/user';
+import apiErrorStore from '../stores/error';
 
 const drawerWidth = 318;
 const navigationWidth = 64;
 
-const Home = observer((props) => {
+const Home = ({ store: { userStore } }) => {
   const [open, setOpen] = useState(true);
   useEffect(() => {
     if (!userStore.isLoggedIn) {
@@ -33,10 +32,10 @@ const Home = observer((props) => {
           })}
         >
           <div>
-            {ApiErrorStore.errorCode && (
+            {apiErrorStore.errorCode && (
               <div>
-                <div>{ApiErrorStore.errorCode}</div>
-                <button type="button" onClick={ApiErrorStore.confirmBtnClick}>
+                <div>{apiErrorStore.errorCode}</div>
+                <button type="button" onClick={apiErrorStore.confirmBtnClick}>
                   확인
                 </button>
               </div>
@@ -76,9 +75,9 @@ const Home = observer((props) => {
       </Wrapper>
     </Layout>
   );
-});
+};
 
-export default Home;
+export default inject('store')(observer(Home));
 
 const Layout = styled.div`
   display: flex;

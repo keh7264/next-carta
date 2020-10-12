@@ -1,23 +1,22 @@
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import ProjectStore from '../../../stores/project';
 
-const Project = observer(() => {
+const Project = ({ store: { projectStore } }) => {
   const router = useRouter();
   const { projectId } = router.query;
 
   useEffect(() => {
     if (projectId) {
-      ProjectStore.findOne(projectId);
+      projectStore.findOne(projectId);
     }
   }, [projectId]);
 
-  if (!ProjectStore.project) {
+  if (!projectStore.project) {
     return <div>project is Empty</div>;
   }
 
-  const { completed_date, construction_date, coordinate, description, name } = ProjectStore.project;
+  const { completed_date, construction_date, coordinate, description, name } = projectStore.project;
 
   return (
     <div>
@@ -27,6 +26,6 @@ const Project = observer(() => {
       <p>{`좌표계 :${coordinate}`}</p>
     </div>
   );
-});
+};
 
-export default Project;
+export default inject('store')(observer(Project));

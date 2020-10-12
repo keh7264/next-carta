@@ -1,12 +1,12 @@
 import { Card, Container } from '@material-ui/core';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import styled from 'styled-components';
-import projectStore from '../../stores/project';
 
-const Projects = observer((props) => {
+const Projects = ({ store: { projectStore } }) => {
   const { projects, sortProjectList } = projectStore;
+
   useEffect(() => {
     projectStore.findAll();
   }, []);
@@ -27,9 +27,10 @@ const Projects = observer((props) => {
         })}
     </ContainerEx>
   );
-});
+};
 
-export default Projects;
+export default inject('store')(observer(Projects));
+
 const ContainerEx = styled(Container)`
   margin: auto;
   display: flex;

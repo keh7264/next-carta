@@ -1,9 +1,8 @@
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import snapshotStore from '../../../../../stores/snapshots';
 
-const Snapshot = observer(() => {
+const Snapshot = ({ store: { snapshotStore } }) => {
   const router = useRouter();
   const { projectId, snapshotId } = router.query;
   const { snapshot } = snapshotStore;
@@ -26,6 +25,6 @@ const Snapshot = observer(() => {
       <p>{`메모 :${description}`}</p>
     </div>
   );
-});
+};
 
-export default Snapshot;
+export default inject('store')(observer(Snapshot));

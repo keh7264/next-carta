@@ -3,17 +3,33 @@ import { action, computed, flow, observable } from 'mobx';
 import { defaultProjectOrder } from '../config/project';
 import projectRepository from '../repository/projectRepository';
 
+export const initialProjectState = {
+  project: null,
+  projects: [],
+  orderedProjectList: [],
+  sortingCriterion: defaultProjectOrder,
+};
 class ProjectStore {
-  @observable project = null;
+  @observable project = initialProjectState.project;
 
-  @observable projects = [];
+  @observable projects = initialProjectState.projects;
 
-  @observable orderedProjectList = [];
+  @observable orderedProjectList = initialProjectState.orderedProjectList;
 
-  @observable sortingCriterion = defaultProjectOrder;
+  @observable sortingCriterion = initialProjectState.sortingCriterion;
 
   @computed get sortProjectList() {
-    return orderBy(this.projects, [this.sortingCriterion.target], [this.sortingCriterion]);
+    return (
+      orderBy(this.projects, [this.sortingCriterion.target], [this.sortingCriterion]) ||
+      initialProjectState.orderedProjectList
+    );
+  }
+
+  constructor(initialState) {
+    this.project = initialState.project;
+    this.projects = initialState.projects;
+    this.orderedProjectList = initialState.orderedProjectList;
+    this.sortingCriterion = initialState.sortingCriterion;
   }
 
   @action
@@ -36,4 +52,4 @@ class ProjectStore {
   });
 }
 
-export default new ProjectStore();
+export default ProjectStore;

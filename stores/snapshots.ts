@@ -21,4 +21,4 @@ class SnapshotStore {
   });
 }
 
-export default new SnapshotStore();
+export default SnapshotStore;

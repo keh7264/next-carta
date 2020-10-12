@@ -18,4 +18,4 @@ class UserStore {
   });
 }
 
-export default new UserStore();
+export default UserStore;

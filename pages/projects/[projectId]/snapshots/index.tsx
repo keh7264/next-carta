@@ -1,19 +1,18 @@
 import { Card, Container } from '@material-ui/core';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import styled from 'styled-components';
-import SnapshotStore from '../../../../stores/snapshots';
 
-const Snapshots = observer((props) => {
+const Snapshots = ({ store: { snapshotStore } }) => {
   const router = useRouter();
-  const { snapshots } = SnapshotStore;
+  const { snapshots } = snapshotStore;
   const { projectId } = router.query;
 
   useEffect(() => {
     if (projectId) {
-      SnapshotStore.list(projectId);
+      snapshotStore.list(projectId);
     }
   }, [projectId]);
 
@@ -37,9 +36,10 @@ const Snapshots = observer((props) => {
         })}
     </ContainerEx>
   );
-});
+};
 
-export default Snapshots;
+export default inject('store')(observer(Snapshots));
+
 const ContainerEx = styled(Container)`
   margin: auto;
   display: flex;

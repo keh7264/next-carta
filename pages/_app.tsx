@@ -1,13 +1,24 @@
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme, ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
+import 'leaflet/dist/leaflet.css';
 import { Provider } from 'mobx-react';
 import Head from 'next/head';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { ThemeProvider } from 'styled-components';
-
-import projectStore from '../stores/project';
+import initializeStore from '../stores';
 
 export default function MyApp({ Component, pageProps }) {
+  const store = useMemo(() => {
+    return initializeStore();
+  }, []);
+
+  useEffect(() => {
+    const { initialState } = pageProps;
+    if (initialState) {
+      store.hydrate(initialState);
+    }
+  }, [store, pageProps]);
+
   const customTheme = createMuiTheme({
     palette: {
       primary: {
@@ -32,7 +43,7 @@ export default function MyApp({ Component, pageProps }) {
       </Head>
       {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
       <CssBaseline />
-      <Provider projectStore={projectStore}>
+      <Provider store={store}>
         <MuiThemeProvider theme={customTheme}>
           <ThemeProvider theme={customTheme}>
             <Component {...pageProps} />
